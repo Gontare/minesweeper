@@ -1,5 +1,3 @@
-import random
-
 import pygame as pg
 
 from minesweeper.agent import Agent
@@ -9,13 +7,12 @@ from minesweeper.grid import Grid
 pg.init()
 print('This is our intelligent sprite running through a minefield!')
 pg.display.set_caption('Minesweeper')
-# player object
+
+# agent object
 agent = Agent()
-#grid object
+
+# grid object
 grid = Grid()
-grid.legend()
-
-
 
 
 def main():
@@ -24,18 +21,26 @@ def main():
 
     # game loop
     while True:
-        #2 linie poniżej są w komentarzu bo w gridzie jest clock w funkcji legenda
+        # initiating clock
+        dt = pg.time.get_ticks()
+        TIME = (dt / 1000) % 60
 
-        # clock.tick(120)
-        # timer = pg.time.get_ticks()
+        # tiles
+        TILES = 0
 
+        # mines
+        MINES = 0
+
+        # getting mines demined
+        grid.legend(TIME, TILES, MINES)
+
+        # displaying the grid
         grid.display_tilemap()
-        # print(timer)
 
-
-        # Player event
+        # agent movement event
         agent.agent_move(grid.tilemap, grid.MAPWIDTH, grid.MAPHEIGHT)
-        # player display
+
+        # agent display
         agent.show_agent(grid.TILESIZE, grid.SURFACE)
         pg.display.update()
 

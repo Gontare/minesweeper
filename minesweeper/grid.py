@@ -1,5 +1,4 @@
 import random
-import sys
 
 import pygame as pg
 
@@ -11,6 +10,7 @@ class Grid:
     MAPWIDTH = 15
 
     SURFACE = None
+
     # colors
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
@@ -18,18 +18,24 @@ class Grid:
     # floors accessible
     GROUND = 0
     LANDMINE = 1
-
     # not accessible
     OBSTACLE = 2
-    floor = [GROUND, LANDMINE, OBSTACLE]
+    DEMINED = 3
+    PATH = 4
+
+    floor = [GROUND, LANDMINE, OBSTACLE, DEMINED, PATH]
+
     # dictionary linking textures with floors
     textures = {
         GROUND: pg.image.load('resources/ground.png'),
         OBSTACLE: pg.image.load('resources/obstacle.png'),
-        LANDMINE: pg.image.load('resources/landmine.png')
+        LANDMINE: pg.image.load('resources/landmine.png'),
+        DEMINED: pg.image.load('resources/demined.png'),
+        PATH: pg.image.load('resources/path.png')
     }
-    tilemap = []
+
     # a list representing our tilemap
+    tilemap = []
 
     def __init__(self):
         pass
@@ -48,13 +54,12 @@ class Grid:
                 self.tilemap[rw][cl] = tile
                 self.tilemap[0][0] = self.GROUND
 
-
     def set_tilemap(self):
         self.tilemap = [[self.GROUND for w in range(self.MAPWIDTH)] for h in range(self.MAPHEIGHT)]
         return self.tilemap
 
     def get_MAPHEIGHT(self):
-        return self.MAPHEIGH
+        return self.MAPHEIGHT
 
     def get_MAPWIDTH(self):
         return self.MAPHEIGHT
@@ -67,26 +72,19 @@ class Grid:
                 self.SURFACE.blit(self.textures[self.tilemap[row][column]],
                                   (row * self.TILESIZE, column * self.TILESIZE))
 
-    # to jest pierdolone spaggettii
-    def legend(self):
+    def legend(self, TIME, TILES, MINES):
         # creating a new drawing surface
         self.SURFACE = pg.display.set_mode((self.TILESIZE * self.MAPWIDTH, self.TILESIZE * self.MAPHEIGHT + 50))
 
         # mouse is not visible
         pg.mouse.set_visible(False)
-        # creating a clock
-        clock = pg.time.Clock()
-        FPS = 120
-
-        # bar beneath the tilemap
-        TIME = 0
-        TILES = 0
-        MINES = 0
 
         # font for legend
         FONT = pg.font.Font(None, 40)
+
         # legend bar
         placePosition = 100
+
         # clock legend
         clock_image = pg.image.load('resources/clock.png')
         self.SURFACE.blit(clock_image, (placePosition, self.MAPHEIGHT * self.TILESIZE + 5))
@@ -94,6 +92,7 @@ class Grid:
         textObj1 = FONT.render(str(TIME), True, self.WHITE, self.BLACK)
         self.SURFACE.blit(textObj1, (placePosition, self.MAPHEIGHT * self.TILESIZE + 13))
         placePosition += 100
+
         # tiles legend
         feet = pg.image.load('resources/feet.png')
         self.SURFACE.blit(feet, (placePosition, self.MAPHEIGHT * self.TILESIZE + 5))
@@ -101,6 +100,7 @@ class Grid:
         textObj2 = FONT.render(str(TILES), True, self.WHITE, self.BLACK)
         self.SURFACE.blit(textObj2, (placePosition, self.MAPHEIGHT * self.TILESIZE + 13))
         placePosition += 100
+
         # mines uncovered legend
         mines = pg.image.load('resources/mines.png')
         self.SURFACE.blit(mines, (placePosition, self.MAPHEIGHT * self.TILESIZE + 5))

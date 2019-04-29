@@ -7,9 +7,9 @@ import pygame as pg
 class Agent:
     def __init__(self):
         pass
+
     playerPos = [0, 0]
     AGENT = pg.image.load("resources/agent.png")
-
 
     def move_right(self):
         x += 1
@@ -29,6 +29,10 @@ class Agent:
     def player_pos(self):
         print(x + " " + y)
 
+    def demine(self, tilemap):
+        if tilemap[self.playerPos[0]][self.playerPos[1]] == 1:
+            tilemap[self.playerPos[0]][self.playerPos[1]] = 3
+
     def agent_move(self, tilemap, MAPWIDTH, MAPHEIGHT):
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -37,32 +41,36 @@ class Agent:
         while True:
             way = random.randint(1, 4)
             # print(way)
+            # print("tilemap:" + str(tilemap[self.playerPos[0]][self.playerPos[1]]) + " " + str(self.playerPos[0])
+            # + " " + str(self.playerPos[1]))
 
-            print("tilemap:" + str(tilemap[self.playerPos[0]][self.playerPos[1]]) + " " + str(self.playerPos[0]) + " " + str(self.playerPos[1]))
-            #CZEMU TO NADAL NIE JEST KURWA CASEM TO JA NIE WIEM XD
             if way == 1 and self.playerPos[0]< MAPWIDTH - 1:
                 if self.playerPos[0] < 15:
                     if tilemap[self.playerPos[0] + 1][self.playerPos[1]] != 2:
                         self.playerPos[0] += 1
-                        print(self.playerPos[0], self.playerPos[1])
+                        self.demine(tilemap)
+                        # print(self.playerPos[0], self.playerPos[1])
                         break
             if way == 2 and self.playerPos[0] > 0:
                 if self.playerPos[0] < 15:
                     if tilemap[self.playerPos[0] - 1][self.playerPos[1]] != 2:
                         self.playerPos[0] -= 1
-                        print(self.playerPos[0], self.playerPos[1])
+                        self.demine(tilemap)
+                        # print(self.playerPos[0], self.playerPos[1])
                         break
             if way == 3 and self.playerPos[1] < MAPHEIGHT - 1:
                 if self.playerPos[0] < 15:
                     if tilemap[self.playerPos[0]][self.playerPos[1] + 1] != 2:
                         self.playerPos[1] += 1
-                        print(self.playerPos[0], self.playerPos[1])
+                        self.demine(tilemap)
+                        # print(self.playerPos[0], self.playerPos[1])
                 break
             if way == 4 and self.playerPos[1] > 0:
                 if self.playerPos[0] < 15:
                     if tilemap[self.playerPos[0]][self.playerPos[1] - 1] != 2:
                         self.playerPos[1] -= 1
-                        print(self.playerPos[0], self.playerPos[1])
+                        self.demine(tilemap)
+                        # print(self.playerPos[0], self.playerPos[1])
                         break
 
 '''
