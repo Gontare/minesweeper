@@ -41,7 +41,10 @@ def main():
         move.extend([agent.goal])
 
         for x in range(len(move)):
-            agent.spritePos = move[x]
+            sprtietmoveposition = move[x]
+            agent.spritePos[0] = sprtietmoveposition[0] - 1
+            agent.spritePos[1] = sprtietmoveposition[1] - 1
+
             agent.show_sprite(grid.TILESIZE, grid.SURFACE)
             pg.time.wait(30)
             pg.display.update()
