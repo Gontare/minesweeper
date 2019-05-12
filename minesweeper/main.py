@@ -37,11 +37,15 @@ def main():
         grid.display_tilemap()
 
         move = agent.move_sprite(grid.tilemap, grid.bombcounter)
-        move.append(agent.goal)
+        print(agent.goal)
+        move.extend([agent.goal])
 
         for x in range(len(move)):
             agent.spritePos = move[x]
             agent.show_sprite(grid.TILESIZE, grid.SURFACE)
+            pg.time.wait(30)
+            pg.display.update()
+            grid.SURFACE.blit(grid.textures[grid.tilemap[agent.spritePos[0]][agent.spritePos[1]]], (agent.spritePos[0] * grid.TILESIZE, agent.spritePos[1] * grid.TILESIZE))
 
         pg.time.wait(1000)
 
