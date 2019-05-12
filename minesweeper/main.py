@@ -1,6 +1,6 @@
 import pygame as pg
 
-from minesweeper.agent import Agent
+from minesweeper.sprite import Sprite
 from minesweeper.grid import Grid
 
 # initializing PyGame module
@@ -9,7 +9,7 @@ print('This is our intelligent sprite running through a minefield!')
 pg.display.set_caption('Minesweeper')
 
 # agent object
-agent = Agent()
+agent = Sprite()
 
 # grid object
 grid = Grid()
@@ -20,28 +20,32 @@ def main():
     grid.generate_tilemap()
 
     # game loop
-    while True:
+    while True and grid.bombcounter != 0:
         # initiating clock
-        dt = pg.time.get_ticks()
-        TIME = (dt / 1000) % 60
-
-        # tiles
-        TILES = 0
+        # dt = pg.time.get_ticks()
+        # TIME = (dt / 1000) % 60
+        # sec = str(TIME).split('.')
+        # TIME = sec[0]
 
         # mines
-        MINES = 0
+        MINES = grid.how_many_demined()
 
-        # getting mines demined
-        grid.legend(TIME, TILES, MINES)
+        # shows our screen with legend
+        grid.show_screen(MINES)
 
         # displaying the grid
         grid.display_tilemap()
 
-        # agent movement event
-        agent.agent_move(grid.tilemap, grid.MAPWIDTH, grid.MAPHEIGHT)
+        move = agent.move_sprite(grid.tilemap, grid.bombcounter)
+        move.append(agent.goal)
 
-        # agent display
-        agent.show_agent(grid.TILESIZE, grid.SURFACE)
+        for x in range(len(move)):
+            agent.spritePos = move[x]
+            agent.show_sprite(grid.TILESIZE, grid.SURFACE)
+
+        pg.time.wait(1000)
+
+        # display update
         pg.display.update()
 
 
