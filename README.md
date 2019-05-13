@@ -2,22 +2,17 @@
 
 
 
-### Markdown
+### About
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Project is developed by:
+- Weronika Olejniczak [@weronikaolejniczak](https://github.com/weronikaolejniczak)
+- Przemysław Bagan [@baganit](https://github.com/baganit)
+- Szymon Komosiński [@rvz0r](https://github.com/rvz0r)
 
-```markdown
-Syntax highlighted code block
+With a help of:
+- Krystian Gątarek
+- Aleksander Kurz [@Uizuk](https://github.com/Uizuk)
 
-# Header 1
-## Header 2
-### Header 3
+The main goal is to conduct a project for Artificial Intelligence classes at Faculty of Mathematics and Computer Science of Adam Mickiewicz University in Poznań.
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
+### References
