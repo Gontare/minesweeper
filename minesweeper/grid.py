@@ -40,8 +40,8 @@ class Grid:
         self.tilemap = []
         self.bombcounter = 0
 
-        # creating a new drawing surface
-        self.SURFACE = pg.display.set_mode((self.TILESIZE * self.MAPWIDTH, self.TILESIZE * self.MAPHEIGHT + 50))
+        # creating a new drawing surface; add '50' in place of '0' to create bar
+        self.SURFACE = pg.display.set_mode((self.TILESIZE * self.MAPWIDTH, self.TILESIZE * self.MAPHEIGHT + 0))
 
     def wall_up(self):
         for x in range(4, 5):
@@ -56,17 +56,22 @@ class Grid:
         # randomly generated flooring
         for rw in range(self.MAPHEIGHT):
             for cl in range(self.MAPWIDTH):
-                num = random.randint(0, 14)
-                if num < 13:
-                    tile = self.GROUND
+                num = random.randint(0, 20)
+                if num < 18:
+                    self.tilemap[rw][cl] = self.GROUND
                 # elif 10 <= num < 13:
                     # tile = self.OBSTACLE
                 else:
-                    tile = self.LANDMINE
-                    self.bombcounter += 1
-                self.tilemap[rw][cl] = tile
+                    self.tilemap[rw][cl] = self.LANDMINE
                 self.tilemap[0][0] = self.START
-                self.wall_up()
+                self.tilemap[14][14] = self.START
+                # self.wall_up()
+
+    def count_bombs(self):
+        for rw in range(self.MAPHEIGHT):
+            for cl in range(self.MAPWIDTH):
+                if self.tilemap[rw][cl] == self.LANDMINE:
+                    self.bombcounter += 1
 
     def set_tilemap(self):
         self.tilemap = [[self.GROUND for w in range(self.MAPWIDTH)] for h in range(self.MAPHEIGHT)]
@@ -80,19 +85,12 @@ class Grid:
                 self.SURFACE.blit(self.textures[self.tilemap[row][column]],
                                   (row * self.TILESIZE, column * self.TILESIZE))
 
-    def how_many_demined(self):
-        counter = 0
-        for row in range(self.MAPHEIGHT):
-            for column in range(self.MAPWIDTH):
-                if self.tilemap[row][column] == self.DEMINED:
-                    counter += 1
-        return counter
-
     # REFACTOR
     def show_screen(self, MINES):
         # mouse is not visible
         pg.mouse.set_visible(False)
 
+        '''
         # font for show_screen
         FONT = pg.font.Font(None, 40)
 
@@ -114,3 +112,4 @@ class Grid:
             placePosition += 50
             textObj3 = FONT.render(str(MINES), True, self.WHITE, self.BLACK)
             self.SURFACE.blit(textObj3, (placePosition, self.MAPHEIGHT * self.TILESIZE + 13))
+        '''

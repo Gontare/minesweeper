@@ -18,6 +18,8 @@ grid = Grid()
 def main():
     grid.set_tilemap()
     grid.generate_tilemap()
+    grid.count_bombs()
+    print(grid.tilemap)
 
     # game loop
     while True and grid.bombcounter != 0:
@@ -27,12 +29,6 @@ def main():
         # sec = str(TIME).split('.')
         # TIME = sec[0]
 
-        # mines
-        MINES = grid.how_many_demined()
-
-        # shows our screen with legend
-        grid.show_screen(MINES)
-
         # displaying the grid
         grid.display_tilemap()
 
@@ -40,12 +36,20 @@ def main():
         print(agent.goal)
         move.extend([agent.goal])
 
-        for x in range(len(move)):
-            sprtietmoveposition = move[x]
-            agent.spritePos[0] = sprtietmoveposition[0] - 1
-            agent.spritePos[1] = sprtietmoveposition[1] - 1
+        # mines
+        MINES = grid.bombcounter
 
+        # shows our screen with legend
+        grid.show_screen(MINES)
+
+        for x in range(len(move)):
+            sprite_movement = move[x]
+            # print(sprite_movement)
+            # print(agent.spritePos)
+            agent.spritePos[0] = sprite_movement[0] - 1
+            agent.spritePos[1] = sprite_movement[1] - 1
             agent.show_sprite(grid.TILESIZE, grid.SURFACE)
+
             pg.time.wait(30)
             pg.display.update()
             grid.SURFACE.blit(grid.textures[grid.tilemap[agent.spritePos[0]][agent.spritePos[1]]], (agent.spritePos[0] * grid.TILESIZE, agent.spritePos[1] * grid.TILESIZE))
