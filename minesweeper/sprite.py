@@ -1,7 +1,8 @@
-from minesweeper.Astar.Astar import *
-
 import sys
+
 import pygame as pg
+
+from minesweeper.astar.astar import *
 
 
 class Sprite:
@@ -16,10 +17,30 @@ class Sprite:
         if tilemap[self.spritePos[0]][self.spritePos[1]] == 1:
             tilemap[self.spritePos[0]][self.spritePos[1]] = 3
 
+    @staticmethod
+    def goal(tilemap, bombcounter):
+        x = 0
+        y = 0
+        z = 1
+
+        for x in range(15):
+            if z == 0:
+                break
+            for y in range(15):
+                if tilemap[x][y] == 1:
+                    # print(x , " " , y)
+                    tilemap[x][y] = 3
+                    bombcounter -= 1
+                    z = 0
+                if z == 0:
+                    break
+
+        return x, y
+
     def show_sprite(self, tilesize, SURFACE):
         SURFACE.blit(self.SPRITE, (self.spritePos[0] * tilesize, self.spritePos[1] * tilesize))
 
-    def move_sprite(self, tilemap, bombcounter):
+    def move_sprite(self, tilemap):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -28,10 +49,10 @@ class Sprite:
         # SPRITE MOVEMENT V3
         if self.count == 0:
             self.count = 1
-            self.goal = Astar.goal(Astar.goal, tilemap, bombcounter)
+            self.goal = self.goal(self.goal, tilemap)
         else:
             self.previous_goal = self.goal
-            self.goal = Astar.goal(Astar.goal, tilemap, bombcounter)
+            self.goal = self.goal(self.goal, tilemap)
         return Astar.sprite_move(self.previous_goal, self.goal)
 
 #        SPRITE MOVEMENT V2

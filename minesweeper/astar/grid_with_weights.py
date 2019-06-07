@@ -1,4 +1,4 @@
-from minesweeper.Astar.SquareGrid import SquareGrid
+from minesweeper.astar.square_grid import SquareGrid
 
 
 class GridWithWeights(SquareGrid):
