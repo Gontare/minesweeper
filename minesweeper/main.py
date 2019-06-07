@@ -20,10 +20,9 @@ def main():
     grid.set_tilemap()
     grid.generate_tilemap()
     grid.count_bombs()
-    print(grid.tilemap)
 
     # game loop
-    while True and grid.bombcounter != 0:
+    while True and grid.bomb_counter != 0:
         # initiating clock
         # dt = pg.time.get_ticks()
         # TIME = (dt / 1000) % 60
@@ -33,18 +32,19 @@ def main():
         # displaying the grid
         grid.display_tilemap()
 
-        move = agent.move_sprite(grid.tilemap, grid.bombcounter)
+        move = agent.move_sprite(grid.tilemap, grid.bomb_counter)
         move.extend([agent.goal])
 
         for x in range(len(move)):
+            print(agent.spritePos)
             sprite_movement = move[x]
             agent.spritePos[0] = sprite_movement[0] - 1
             agent.spritePos[1] = sprite_movement[1] - 1
-            agent.show_sprite(grid.TILESIZE, grid.SURFACE)
-
+            agent.show_sprite(grid.TILE_SIZE, grid.SURFACE)
             pg.time.wait(30)
             pg.display.update()
-            grid.SURFACE.blit(grid.textures[grid.tilemap[agent.spritePos[0]][agent.spritePos[1]]], (agent.spritePos[0] * grid.TILESIZE, agent.spritePos[1] * grid.TILESIZE))
+            grid.SURFACE.blit(grid.textures[grid.tilemap[agent.spritePos[0]][agent.spritePos[1]]], (agent.spritePos[0]
+                * grid.TILE_SIZE, agent.spritePos[1] * grid.TILE_SIZE))
 
         pg.time.wait(1000)
 
