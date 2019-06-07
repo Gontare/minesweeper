@@ -3,7 +3,11 @@
     <words>
       <w>astar</w>
       <w>demine</w>
+      <w>demined</w>
+      <w>mapheight</w>
+      <w>mapwidth</w>
       <w>spritemove</w>
+      <w>tilemap</w>
     </words>
   </dictionary>
 </component>
