@@ -3,11 +3,9 @@ from minesweeper.astar.priority_queue import PriorityQueue
 
 
 class Astar():
-    def __init__(self, came_from, cost_so_far, goal):
+    def __init__(self):
         self.start = (0, 0)
-        self.goal = goal
         self.diagram = GridWithWeights(15, 15)
-        self.came_from, self.cost_so_far = came_from, cost_so_far
 
     @staticmethod
     def heuristic(a, b):
