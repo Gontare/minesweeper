@@ -1,12 +1,13 @@
 import pygame as pg
 
-from minesweeper.sprite import Sprite
-from minesweeper.grid import Grid
+from minesweeper.Sprite import Sprite
+from minesweeper.environment.Grid import Grid
 
 # initializing PyGame module
 pg.init()
 print('This is our intelligent sprite running through a minefield!')
 pg.display.set_caption('Minesweeper')
+pg.mouse.set_visible(False)
 
 # agent object
 agent = Sprite()
@@ -33,19 +34,10 @@ def main():
         grid.display_tilemap()
 
         move = agent.move_sprite(grid.tilemap, grid.bombcounter)
-        print(agent.goal)
         move.extend([agent.goal])
-
-        # mines
-        MINES = grid.bombcounter
-
-        # shows our screen with legend
-        grid.show_screen(MINES)
 
         for x in range(len(move)):
             sprite_movement = move[x]
-            # print(sprite_movement)
-            # print(agent.spritePos)
             agent.spritePos[0] = sprite_movement[0] - 1
             agent.spritePos[1] = sprite_movement[1] - 1
             agent.show_sprite(grid.TILESIZE, grid.SURFACE)

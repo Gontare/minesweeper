@@ -1,19 +1,16 @@
+from minesweeper.Astar.Astar import *
+
 import sys
-
 import pygame as pg
-
-from minesweeper.test import *
 
 
 class Sprite:
-
     def __init__(self):
         self.spritePos = [0, 0]
         self.SPRITE = pg.image.load('resources/agent.png')
-        self.length = 0
         self.previous_goal = (0, 0)
         self.goal = None
-        self.count1 = 0
+        self.count = 0
 
     def demine(self, tilemap):
         if tilemap[self.spritePos[0]][self.spritePos[1]] == 1:
@@ -29,23 +26,23 @@ class Sprite:
                 sys.exit()
 
         # SPRITE MOVEMENT V3
-        if self.count1 == 0:
-            self.count1 = 1
-            self.goal = goal(tilemap, bombcounter)
+        if self.count == 0:
+            self.count = 1
+            self.goal = Astar.goal(Astar.goal, tilemap, bombcounter)
         else:
             self.previous_goal = self.goal
-            self.goal = goal(tilemap, bombcounter)
-        return spritemove(self.previous_goal, self.goal)
+            self.goal = Astar.goal(Astar.goal, tilemap, bombcounter)
+        return Astar.sprite_move(self.previous_goal, self.goal)
 
-        # SPRITE MOVEMENT V2
-        # while True:
-            # sprite movement v2
-            # way = random.randint(1, 4)
-            # print(way)
-            # print("tilemap:" + str(tilemap[self.spritePos[0]][self.spritePos[1]]) + " " + str(self.spritePos[0])
-            # + " " + str(self.spritePos[1]))
+#        SPRITE MOVEMENT V2
+#        while True:
+#            sprite movement v2
+#            way = random.randint(1, 4)
+#            print(way)
+#            print("tilemap:" + str(tilemap[self.spritePos[0]][self.spritePos[1]]) + " " + str(self.spritePos[0])
+#            + " " + str(self.spritePos[1]))
 
-            # if way == 1 and self.spritePos[0]< MAPWIDTH - 1:
+#            if way == 1 and self.spritePos[0]< MAPWIDTH - 1:
                 # if self.spritePos[0] < 15:
                     # if tilemap[self.spritePos[0] + 1][self.spritePos[1]] != 2:
                         # self.spritePos[0] += 1
