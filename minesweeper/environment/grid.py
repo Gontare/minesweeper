@@ -1,10 +1,8 @@
 import random
-
 import pygame as pg
 
 
 class Grid:
-
     def __init__(self):
         # display dimensions
         self.TILESIZE = 40
@@ -64,6 +62,7 @@ class Grid:
                 self.tilemap[0][0] = self.START
                 self.tilemap[14][14] = self.START
                 # self.wall_up()
+        return self.tilemap
 
     def count_bombs(self):
         for rw in range(self.MAPHEIGHT):

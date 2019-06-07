@@ -1,7 +1,7 @@
 import pygame as pg
 
-from minesweeper.Sprite import Sprite
-from minesweeper.environment.Grid import Grid
+from minesweeper.sprite import Sprite
+from minesweeper.environment.grid import Grid
 
 # initializing PyGame module
 pg.init()
@@ -33,7 +33,7 @@ def main():
         # displaying the grid
         grid.display_tilemap()
 
-        move = agent.move_sprite(grid.tilemap, grid.bombcounter)
+        move = agent.move_sprite(grid.tilemap)
         move.extend([agent.goal])
 
         for x in range(len(move)):

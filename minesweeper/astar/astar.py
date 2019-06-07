@@ -1,13 +1,13 @@
-from minesweeper.Astar.GridWithWeights import GridWithWeights
-from minesweeper.Astar.PriorityQueue import PriorityQueue
+from minesweeper.astar.grid_with_weights import GridWithWeights
+from minesweeper.astar.priority_queue import PriorityQueue
 
 
-class Astar:
-    def __init__(self, goal, diagram):
+class Astar():
+    def __init__(self, came_from, cost_so_far, goal):
         self.start = (0, 0)
         self.goal = goal
         self.diagram = GridWithWeights(15, 15)
-        self.came_from, self.cost_so_far = self.a_star_search(diagram, self.start, goal)
+        self.came_from, self.cost_so_far = came_from, cost_so_far
 
     @staticmethod
     def heuristic(a, b):
@@ -40,10 +40,17 @@ class Astar:
         return came_from, cost_so_far
 
     @staticmethod
-    def goal(goal, tilemap, bombcounter):
-        goal
-        return goal
+    def reconstruct_path(came_from, start, goal):
+        current = goal
+        path = []
+        while current != start:
+            path.append(current)
+            current = came_from[current]
+        path.append(start)  # optional
+        path.reverse()  # optional
+        return path
 
-    @staticmethod
-    def sprite_move(previous_goal, goal):
-        fdsf
+    def sprite_move(self, start, goal):
+        diagram = GridWithWeights(15, 15)
+        cameFrom, costSoFar = self.a_star_search(diagram, start, goal)
+        return self.reconstruct_path(cameFrom, start=start, goal=goal)
