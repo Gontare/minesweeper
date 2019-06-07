@@ -9,11 +9,11 @@ print('This is our intelligent sprite running through a minefield!')
 pg.display.set_caption('Minesweeper')
 pg.mouse.set_visible(False)
 
-# agent object
-agent = Sprite()
-
 # grid object
 grid = Grid()
+
+# agent object
+agent = Sprite()
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
         # displaying the grid
         grid.display_tilemap()
 
-        move = agent.move_sprite(grid.tilemap)
+        move = agent.move_sprite(grid.tilemap, grid.bombcounter)
         move.extend([agent.goal])
 
         for x in range(len(move)):

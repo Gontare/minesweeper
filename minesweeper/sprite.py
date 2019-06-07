@@ -1,5 +1,4 @@
 import sys
-
 import pygame as pg
 
 from minesweeper.astar.astar import *
@@ -7,10 +6,11 @@ from minesweeper.astar.astar import *
 
 class Sprite:
     def __init__(self):
+        super().__init__()
         self.spritePos = [0, 0]
         self.SPRITE = pg.image.load('resources/agent.png')
         self.previous_goal = (0, 0)
-        self.goal = None
+        self.goal = []
         self.count = 0
 
     def demine(self, tilemap):
@@ -18,7 +18,7 @@ class Sprite:
             tilemap[self.spritePos[0]][self.spritePos[1]] = 3
 
     @staticmethod
-    def goal(tilemap, bombcounter):
+    def sprite_goal(tilemap, bombcounter):
         x = 0
         y = 0
         z = 1
@@ -40,20 +40,21 @@ class Sprite:
     def show_sprite(self, tilesize, SURFACE):
         SURFACE.blit(self.SPRITE, (self.spritePos[0] * tilesize, self.spritePos[1] * tilesize))
 
-    def move_sprite(self, tilemap):
+    def move_sprite(self, tilemap, bombcounter):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
 
         # SPRITE MOVEMENT V3
+        astar = Astar()
         if self.count == 0:
             self.count = 1
-            self.goal = self.goal(self.goal, tilemap)
+            self.goal = self.sprite_goal(tilemap, bombcounter)
         else:
             self.previous_goal = self.goal
-            self.goal = self.goal(self.goal, tilemap)
-        return Astar.sprite_move(self.previous_goal, self.goal)
+            self.goal = self.sprite_goal(tilemap, bombcounter)
+        return Astar.sprite_move(astar, self.previous_goal, self.goal)
 
 #        SPRITE MOVEMENT V2
 #        while True:
@@ -64,36 +65,36 @@ class Sprite:
 #            + " " + str(self.spritePos[1]))
 
 #            if way == 1 and self.spritePos[0]< MAPWIDTH - 1:
-                # if self.spritePos[0] < 15:
-                    # if tilemap[self.spritePos[0] + 1][self.spritePos[1]] != 2:
-                        # self.spritePos[0] += 1
-                        # self.demine(tilemap)
-                        # print(self.spritePos[0], self.spritePos[1])
-                        # break
-            # if way == 2 and self.spritePos[0] > 0:
-                # if self.spritePos[0] < 15:
-                    # if tilemap[self.spritePos[0] - 1][self.spritePos[1]] != 2:
-                        # self.spritePos[0] -= 1
-                        # self.demine(tilemap)
-                        # print(self.spritePos[0], self.spritePos[1])
-                        # break
-            # if way == 3 and self.spritePos[1] < MAPHEIGHT - 1:
-                # if self.spritePos[0] < 15:
-                    # if tilemap[self.spritePos[0]][self.spritePos[1] + 1] != 2:
-                        # self.spritePos[1] += 1
-                        # self.demine(tilemap)
-                        # print(self.spritePos[0], self.spritePos[1])
-                # break
-            # if way == 4 and self.spritePos[1] > 0:
-                # if self.spritePos[0] < 15:
+#               if self.spritePos[0] < 15:
+#                   if tilemap[self.spritePos[0] + 1][self.spritePos[1]] != 2:
+#                       self.spritePos[0] += 1
+#                       self.demine(tilemap)
+#                       print(self.spritePos[0], self.spritePos[1])
+#                       break
+#            if way == 2 and self.spritePos[0] > 0:
+#               if self.spritePos[0] < 15:
+#                   if tilemap[self.spritePos[0] - 1][self.spritePos[1]] != 2:
+#                       self.spritePos[0] -= 1
+#                       self.demine(tilemap)
+#                       print(self.spritePos[0], self.spritePos[1])
+#                       break
+#            if way == 3 and self.spritePos[1] < MAPHEIGHT - 1:
+#               if self.spritePos[0] < 15:
+#                   if tilemap[self.spritePos[0]][self.spritePos[1] + 1] != 2:
+#                       self.spritePos[1] += 1
+#                       self.demine(tilemap)
+#                       print(self.spritePos[0], self.spritePos[1])
+#                       break
+#            if way == 4 and self.spritePos[1] > 0:
+#               if self.spritePos[0] < 15:
                     # if tilemap[self.spritePos[0]][self.spritePos[1] - 1] != 2:
                         # self.spritePos[1] -= 1
                         # self.demine(tilemap)
                         # print(self.spritePos[0], self.spritePos[1])
                         # break
 
-        # SPRITE MOVEMENT V1
-        # if way == 1 and spritePos[0] < MAPWIDTH - 1 and
+#        SPRITE MOVEMENT V1
+#        if way == 1 and spritePos[0] < MAPWIDTH - 1 and
             # spritePos[0] += 1
             # print(spritePos[0], spritePos[1])
             # break

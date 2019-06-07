@@ -6,5 +6,5 @@ class GridWithWeights(SquareGrid):
         super().__init__(width, height)
         self.weights = {}
 
-    def cost(self, to_node):
+    def cost(self, from_node, to_node):
         return self.weights.get(to_node, 1)
