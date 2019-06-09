@@ -43,10 +43,10 @@ class Grid:
 
         # a list representing our tilemap
         self.tilemap = []
-        self.bomb_counter = 0
+        self.bombCounter = 0
 
-        # creating a new drawing surface; add '50' in place of '0' to create bar
-        self.SURFACE = pg.display.set_mode((self.TILE_SIZE * self.MAPWIDTH, self.TILE_SIZE * self.MAPHEIGHT + 0))
+        # creating a new drawing surface
+        self.SURFACE = pg.display.set_mode((self.TILE_SIZE * self.MAPWIDTH, self.TILE_SIZE * self.MAPHEIGHT))
 
         # grid list for wall generation
         self.grid = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # column 1 reversed
@@ -71,8 +71,16 @@ class Grid:
 
     def place_bombs(self):
         for x in range(9):
-            bomb = Bomb.generate_bombs()
-            self.tilemap[bomb[0]][bomb[1]] = self.LANDMINE
+            bombPos = Bomb.generate_bombs()
+            bomb = Bomb(bombPos[0], bombPos[1], 0, 0, 0)
+            if bomb.type == 1:
+                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_N
+            elif bomb.type == 2:
+                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_E
+            elif bomb.type == 3:
+                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_S
+            else:
+                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_W
 
     def generate_tilemap(self):
         # start and end
@@ -93,8 +101,8 @@ class Grid:
     def count_bombs(self):
         for rw in range(self.MAPHEIGHT):
             for cl in range(self.MAPWIDTH):
-                if self.tilemap[rw][cl] == self.LANDMINE:
-                    self.bomb_counter += 1
+                if self.tilemap[rw][cl] == self.LANDMINE_N or self.LANDMINE_E or self.LANDMINE_S or self.LANDMINE_W:
+                    self.bombCounter += 1
 
     def set_tilemap(self):
         self.tilemap = [[self.GROUND for w in range(self.MAPWIDTH)] for h in range(self.MAPHEIGHT)]

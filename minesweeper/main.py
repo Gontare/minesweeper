@@ -22,7 +22,7 @@ def main():
     grid.count_bombs()
 
     # game loop
-    while True and grid.bomb_counter != 0:
+    while True and grid.bombCounter != 0:
         # initiating clock
         # dt = pg.time.get_ticks()
         # TIME = (dt / 1000) % 60
@@ -32,14 +32,13 @@ def main():
         # displaying the grid
         grid.display_tilemap()
 
-        move = agent.move_sprite(grid.tilemap, grid.bomb_counter)
+        move = agent.move_sprite(grid.tilemap, grid.bombCounter)
         move.extend([agent.goal])
 
         for x in range(len(move)):
-            print(agent.spritePos)
             sprite_movement = move[x]
-            agent.spritePos[0] = sprite_movement[0] - 1
-            agent.spritePos[1] = sprite_movement[1] - 1
+            agent.spritePos[0] = sprite_movement[0]
+            agent.spritePos[1] = sprite_movement[1]
             agent.show_sprite(grid.TILE_SIZE, grid.SURFACE)
             pg.time.wait(30)
             pg.display.update()

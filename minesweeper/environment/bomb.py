@@ -5,19 +5,23 @@ from minesweeper.environment.node import Node
 
 class Bomb(Node):
     def __init__(self, x, y, direction, cost, timer):
-        super().__init__(x, y, direction, cost)
+        super().__init__(x, y)
+        self.direction = direction
+        self.cost = cost
         self.timer = timer
+        self.type = random.randint(1, 4)
 
     @staticmethod
     def generate_bombs():
-        bombsPos = [(2, 2), (2, 4), (2, 8), (2, 10), (2, 12), (2, 14),
-                    (4, 2), (4, 4), (4, 8), (4, 10), (4, 12), (4, 14),
-                    (6, 2), (6, 4), (6, 8), (6, 10), (6, 12), (6, 14),
-                    (8, 2), (8, 4), (8, 8), (8, 10), (8, 12), (8, 14),
-                    (10, 2), (10, 4), (10, 8), (10, 10), (10, 12), (10, 14),
-                    (12, 2), (12, 4), (12, 8), (12, 10), (12, 12), (12, 14),
-                    (14, 2), (14, 4), (14, 8), (14, 10), (14, 12), (14, 14)
+        bombsPos = [(1, 2), (1, 4), (1, 8), (1, 10), (1, 12), (1, 14),
+                    (3, 2), (3, 4), (3, 8), (3, 10), (3, 12), (3, 14),
+                    (5, 2), (5, 4), (5, 8), (5, 10), (5, 12), (5, 14),
+                    (7, 2), (7, 4), (7, 8), (7, 10), (7, 12), (7, 14),
+                    (9, 2), (9, 4), (9, 8), (9, 10), (9, 12), (9, 14),
+                    (11, 2), (11, 4), (11, 8), (11, 10), (11, 12), (11, 14),
+                    (13, 2), (13, 4), (13, 8), (13, 10), (13, 12), (13, 14)
                     ]
         randomInt = random.randint(0, 41)
+        bomb = Bomb(bombsPos[randomInt][0], bombsPos[randomInt][1], 0, 0, 0)
 
         return bombsPos[randomInt]
