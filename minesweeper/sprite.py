@@ -13,10 +13,6 @@ class Sprite:
         self.goal = []
         self.count = 0
 
-    def demine(self, tilemap):
-        if tilemap[self.spritePos[0]][self.spritePos[1]] == 1:
-            tilemap[self.spritePos[0]][self.spritePos[1]] = 3
-
     @staticmethod
     def sprite_goal(tilemap, bomb_counter):
         x = 0
@@ -27,7 +23,7 @@ class Sprite:
             if z == 0:
                 break
             for y in range(15):
-                if tilemap[x][y] == 4 or 5 or 6 or 7:
+                if tilemap[x][y] == 4 or tilemap[x][y] == 5 or tilemap[x][y] == 6 or tilemap[x][y] == 7:
                     # print(x , " " , y)
                     tilemap[x][y] = 2
                     bomb_counter -= 1
@@ -40,7 +36,7 @@ class Sprite:
     def show_sprite(self, tile_size, SURFACE):
         SURFACE.blit(self.SPRITE, (self.spritePos[0] * tile_size, self.spritePos[1] * tile_size))
 
-    def move_sprite(self, tilemap, bomb_counter):
+    def move_sprite(self, tilemap, bombCounter):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -50,10 +46,10 @@ class Sprite:
         astar = Astar()
         if self.count == 0:
             self.count = 1
-            self.goal = self.sprite_goal(tilemap, bomb_counter)
+            self.goal = self.sprite_goal(tilemap, bombCounter)
         else:
             self.previous_goal = self.goal
-            self.goal = self.sprite_goal(tilemap, bomb_counter)
+            self.goal = self.sprite_goal(tilemap, bombCounter)
         return Astar.sprite_move(astar, self.previous_goal, self.goal)
 
 #        SPRITE MOVEMENT V2
