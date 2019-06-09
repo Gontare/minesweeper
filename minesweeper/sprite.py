@@ -7,7 +7,7 @@ from minesweeper.astar.astar import *
 class Sprite:
     def __init__(self):
         super().__init__()
-        self.spritePos = [-1, 1]
+        self.spritePos = [0, 0]
         self.SPRITE = pg.image.load('resources/agent.png')
         self.previous_goal = (0, 0)
         self.goal = []
@@ -27,9 +27,9 @@ class Sprite:
             if z == 0:
                 break
             for y in range(15):
-                if tilemap[x][y] == 1:
+                if tilemap[x][y] == 4 or 5 or 6 or 7:
                     # print(x , " " , y)
-                    tilemap[x][y] = 3
+                    tilemap[x][y] = 2
                     bomb_counter -= 1
                     z = 0
                 if z == 0:

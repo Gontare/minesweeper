@@ -1,12 +1,17 @@
-import pygame as pg
-import numpy as np
-
-
 class Node:
-    def __init__(self, x, y, direction, cost):
-        self.x = x
-        self.y = y
-        self.position = (x, y)
+    def __init__(self, direction, cost):
+        self.x = 0
+        self.y = 0
         self.direction = direction
         self.cost = cost
-        self.grid = np.array([(x, y, direction)], [])
+
+    @staticmethod
+    def generate_nodes():
+        nodes = [Node(0, 0) for i in range(225)]
+        for node in nodes:
+            listONodes = [node]
+            print(listONodes)
+
+    def get_pos(self):
+        return self.x, self.y
+
