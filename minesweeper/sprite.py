@@ -1,8 +1,6 @@
 import sys
 import pygame as pg
 
-from minesweeper.astar.astar import *
-
 
 class Sprite:
     def __init__(self):
@@ -42,15 +40,15 @@ class Sprite:
                 pg.quit()
                 sys.exit()
 
-        # SPRITE MOVEMENT V3
-        astar = Astar()
-        if self.count == 0:
-            self.count = 1
-            self.goal = self.sprite_goal(tilemap, bomb_counter)
-        else:
-            self.previousGoal = self.goal
-            self.goal = self.sprite_goal(tilemap, bomb_counter)
-        return Astar.sprite_move(astar, self.previousGoal, self.goal)
+#       SPRITE MOVEMENT V3
+#       astar = Astar()
+#       if self.count == 0:
+#           self.count = 1
+#           self.goal = self.sprite_goal(tilemap, bomb_counter)
+#       else:
+#           self.previousGoal = self.goal
+#           self.goal = self.sprite_goal(tilemap, bomb_counter)
+#       return Astar.sprite_move(astar, self.previousGoal, self.goal)
 
 #        SPRITE MOVEMENT V2
 #        while True:
