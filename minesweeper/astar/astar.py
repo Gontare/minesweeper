@@ -29,10 +29,10 @@ class Astar:
     def a_star_search(self, graph, start, goal):
         frontier = PriorityQueue()
         frontier.put(start, 0)
-        cameFrom = {}
-        costSoFar = {}
-        cameFrom[start] = None
-        costSoFar[start] = 0
+        came_from = {}
+        cost_so_far = {}
+        came_from[start] = None
+        cost_so_far[start] = 0
 
         while not frontier.empty():
             current = frontier.get()
@@ -40,27 +40,27 @@ class Astar:
             if current == goal:
                 break
 
-            for next in graph.neighbors(current):
-                newCost = costSoFar[current] + graph.cost(current, next)
-                if next not in costSoFar or newCost < costSoFar[next]:
-                    costSoFar[next] = newCost
-                    priority = newCost + self.heuristic(goal, next)
-                    frontier.put(next, priority)
-                    cameFrom[next] = current
+            for next_neighbour in graph.neighbors(current):
+                new_cost = cost_so_far[current] + graph.cost(current, next_neighbour)
+                if next_neighbour not in cost_so_far or new_cost < cost_so_far[next_neighbour]:
+                    cost_so_far[next_neighbour] = new_cost
+                    priority = new_cost + self.heuristic(goal, next_neighbour)
+                    frontier.put(next_neighbour, priority)
+                    came_from[next_neighbour] = current
 
-        return cameFrom, costSoFar
+        return came_from, cost_so_far
 
     # utility functions for dealing with square grids
     def from_id_width(id, width):
         return id % width, id // width
 
     @staticmethod
-    def draw_tile(graph, id, style, width):
+    def draw_tile(graph, tile_id, style, width):
         r = "."
-        if 'number' in style and id in style['number']: r = "%d" % style['number'][id]
-        if 'point_to' in style and style['point_to'].get(id, None) is not None:
-            (x1, y1) = id
-            (x2, y2) = style['point_to'][id]
+        if 'number' in style and tile_id in style['number']: r = "%d" % style['number'][tile_id]
+        if 'point_to' in style and style['point_to'].get(tile_id, None) is not None:
+            (x1, y1) = tile_id
+            (x2, y2) = style['point_to'][tile_id]
             if x2 == x1 + 1:
                 r = ">"
             if x2 == x1 - 1:
@@ -69,13 +69,13 @@ class Astar:
                 r = "v"
             if y2 == y1 - 1:
                 r = "^"
-        if 'start' in style and id == style['start']:
+        if 'start' in style and tile_id == style['start']:
             r = "A"
-        if 'goal' in style and id == style['goal']:
+        if 'goal' in style and tile_id == style['goal']:
             r = "Z"
-        if 'path' in style and id in style['path']:
+        if 'path' in style and tile_id in style['path']:
             r = "@"
-        if id in graph.walls:
+        if tile_id in graph.walls:
             r = "#" * width
         return r
 
@@ -88,7 +88,7 @@ class Astar:
     def sprite_move(self, start, goal):
         diagram = GridWithWeights(15, 15)
         diagram.walls = self.DIAGRAM_WALLS
-        cameFrom, costSoFar = self.a_star_search(diagram, start, goal)
-        self.draw_grid(diagram, width=3, point_to=cameFrom, start=start, goal=goal)
-        self.draw_grid(diagram, width=3, number=costSoFar, start=start, goal=goal)
-        return self.reconstruct_path(cameFrom, start=start, goal=goal)
+        came_from, cost_so_far = self.a_star_search(diagram, start, goal)
+        self.draw_grid(diagram, width=3, point_to=came_from, start=start, goal=goal)
+        self.draw_grid(diagram, width=3, number=cost_so_far, start=start, goal=goal)
+        return self.reconstruct_path(came_from, start=start, goal=goal)

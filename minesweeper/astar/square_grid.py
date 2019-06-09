@@ -4,15 +4,15 @@ class SquareGrid:
         self.height = height
         self.walls = []
 
-    def in_bounds(self, id):
-        (x, y) = id
+    def in_bounds(self, tile_id):
+        (x, y) = tile_id
         return 0 <= x < self.width and 0 <= y < self.height
 
-    def passable(self, id):
-        return id not in self.walls
+    def passable(self, tile_id):
+        return tile_id not in self.walls
 
-    def neighbors(self, id):
-        (x, y) = id
+    def neighbors(self, tile_id):
+        (x, y) = tile_id
         results = [(x + 1, y), (x, y - 1), (x - 1, y), (x, y + 1)]
         if (x + y) % 2 == 0:
             results.reverse()  # aesthetics

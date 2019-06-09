@@ -50,37 +50,37 @@ class Grid:
 
         # grid list for wall generation
         self.grid = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # column 1 reversed
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # column 2 reversed
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # column 3 reversed
-                         [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],  # column 4 reversed
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # and so on...
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                         ])
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # column 2 reversed
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # column 3 reversed
+                             [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],  # column 4 reversed
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  # and so on...
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                              ])
 
     def wall_up(self, x, y):
         self.tilemap[x][y] = self.WALL
 
     def place_bombs(self):
         for x in range(9):
-            bombPos = Bomb.generate_bombs()
-            bomb = Bomb(bombPos[0], bombPos[1], 0, 0, 0)
+            bomb_pos = Bomb.generate_bombs()
+            bomb = Bomb(bomb_pos[0], bomb_pos[1], 0, 0, 0)
             if bomb.type == 1:
-                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_N
+                self.tilemap[bomb_pos[0]][bomb_pos[1]] = self.LANDMINE_N
             elif bomb.type == 2:
-                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_E
+                self.tilemap[bomb_pos[0]][bomb_pos[1]] = self.LANDMINE_E
             elif bomb.type == 3:
-                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_S
+                self.tilemap[bomb_pos[0]][bomb_pos[1]] = self.LANDMINE_S
             else:
-                self.tilemap[bombPos[0]][bombPos[1]] = self.LANDMINE_W
+                self.tilemap[bomb_pos[0]][bomb_pos[1]] = self.LANDMINE_W
 
     def generate_tilemap(self):
         # start and end
@@ -105,7 +105,7 @@ class Grid:
                     self.bombCounter += 1
 
     def set_tilemap(self):
-        self.tilemap = [[self.GROUND for w in range(self.MAPWIDTH)] for h in range(self.MAPHEIGHT)]
+        self.tilemap = [[self.GROUND for width in range(self.MAPWIDTH)] for height in range(self.MAPHEIGHT)]
         return self.tilemap
 
     def display_tilemap(self):
