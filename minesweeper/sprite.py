@@ -9,12 +9,12 @@ class Sprite:
         super().__init__()
         self.spritePos = [0, 0]
         self.SPRITE = pg.image.load('resources/agent.png')
-        self.previous_goal = (0, 0)
+        self.previousGoal = (0, 0)
         self.goal = []
         self.count = 0
 
     @staticmethod
-    def sprite_goal(tilemap, bomb_counter):
+    def sprite_goal(tilemap, bombCounter):
         x = 0
         y = 0
         z = 1
@@ -26,7 +26,7 @@ class Sprite:
                 if tilemap[x][y] == 4 or tilemap[x][y] == 5 or tilemap[x][y] == 6 or tilemap[x][y] == 7:
                     # print(x , " " , y)
                     tilemap[x][y] = 2
-                    bomb_counter -= 1
+                    bombCounter -= 1
                     z = 0
                 if z == 0:
                     break
@@ -48,9 +48,9 @@ class Sprite:
             self.count = 1
             self.goal = self.sprite_goal(tilemap, bombCounter)
         else:
-            self.previous_goal = self.goal
+            self.previousGoal = self.goal
             self.goal = self.sprite_goal(tilemap, bombCounter)
-        return Astar.sprite_move(astar, self.previous_goal, self.goal)
+        return Astar.sprite_move(astar, self.previousGoal, self.goal)
 
 #        SPRITE MOVEMENT V2
 #        while True:

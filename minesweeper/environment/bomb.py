@@ -22,6 +22,5 @@ class Bomb(Node):
                     (13, 2), (13, 4), (13, 8), (13, 10), (13, 12), (13, 14)
                     ]
         randomInt = random.randint(0, 41)
-        bomb = Bomb(bombsPos[randomInt][0], bombsPos[randomInt][1], 0, 0, 0)
 
         return bombsPos[randomInt]
