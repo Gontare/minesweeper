@@ -14,7 +14,7 @@ class Sprite:
         self.count = 0
 
     @staticmethod
-    def sprite_goal(tilemap, bombCounter):
+    def sprite_goal(tilemap, bomb_counter):
         x = 0
         y = 0
         z = 1
@@ -26,17 +26,17 @@ class Sprite:
                 if tilemap[x][y] == 4 or tilemap[x][y] == 5 or tilemap[x][y] == 6 or tilemap[x][y] == 7:
                     # print(x , " " , y)
                     tilemap[x][y] = 2
-                    bombCounter -= 1
+                    bomb_counter -= 1
                     z = 0
                 if z == 0:
                     break
 
         return x, y
 
-    def show_sprite(self, tile_size, SURFACE):
-        SURFACE.blit(self.SPRITE, (self.spritePos[0] * tile_size, self.spritePos[1] * tile_size))
+    def show_sprite(self, tile_size, surface):
+        surface.blit(self.SPRITE, (self.spritePos[0] * tile_size, self.spritePos[1] * tile_size))
 
-    def move_sprite(self, tilemap, bombCounter):
+    def move_sprite(self, tilemap, bomb_counter):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -46,10 +46,10 @@ class Sprite:
         astar = Astar()
         if self.count == 0:
             self.count = 1
-            self.goal = self.sprite_goal(tilemap, bombCounter)
+            self.goal = self.sprite_goal(tilemap, bomb_counter)
         else:
             self.previousGoal = self.goal
-            self.goal = self.sprite_goal(tilemap, bombCounter)
+            self.goal = self.sprite_goal(tilemap, bomb_counter)
         return Astar.sprite_move(astar, self.previousGoal, self.goal)
 
 #        SPRITE MOVEMENT V2

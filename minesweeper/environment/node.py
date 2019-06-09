@@ -9,8 +9,8 @@ class Node:
     def generate_nodes():
         nodes = [Node(0, 0) for i in range(225)]
         for node in nodes:
-            listONodes = [node]
-            print(listONodes)
+            list_o_nodes = [node]
+            print(list_o_nodes)
 
     def get_pos(self):
         return self.x, self.y
