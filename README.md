@@ -1,23 +1,15 @@
 ## Minesweeper
 
+### About
 
+Project is developed by:
+- Weronika Olejniczak [@weronikaolejniczak](https://github.com/weronikaolejniczak)
+- Przemysław Bagan [@baganit](https://github.com/baganit)
 
-### Markdown
+With a help of:
+- Krystian Gątarek
+- Aleksander Kurz [@Uizuk](https://github.com/Uizuk)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The main goal is to conduct a project for Artificial Intelligence classes at Faculty of Mathematics and Computer Science of Adam Mickiewicz University in Poznań.
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
+### References
