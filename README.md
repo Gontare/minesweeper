@@ -1,6 +1,14 @@
-## Minesweeper
+# Minesweeper
 
-### About
+## Overview
+
+Description. 
+
+### Dependencies
+
+Dependencies.
+
+## Contributors
 
 Project is developed by:
 - Weronika Olejniczak [@weronikaolejniczak](https://github.com/weronikaolejniczak)
